@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: true },
-  { id: 3, description: "Power Bank", quantity: 1, packed: true },
-];
-
 export default function App() {
   const [items, setItems] = useState([]);
 
@@ -29,7 +23,7 @@ export default function App() {
 }
 
 function Logo() {
-  return <h1> 🧳 JALAN KUY ✈</h1>;
+  return <h1> 🧳Travel With Me ✈</h1>;
 }
 
 function Form({ onAddItems }) {
@@ -51,7 +45,7 @@ function Form({ onAddItems }) {
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>Apa aja yang dibawa? 🤔</h3>
-      <h3>Yuk Checklist Barang 😁📝</h3>
+      <h3>Buat Lah List Barang Anda 😁📝</h3>
       <select value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}>
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
           <option value={num} key={num}>
@@ -73,6 +67,9 @@ function PackingList({ items, onDelete }) {
           <Item key={item.id} item={item} onDelete={() => onDelete(item.id)} />
         ))}
       </ul>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#3d3b40" fill-opacity="1" d="M0,128L120,149.3C240,171,480,213,720,213.3C960,213,1200,171,1320,149.3L1440,128L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+      </svg>
     </div>
   );
 }

@@ -13,7 +13,7 @@ html {
 body {
   font-size: 2.4rem;
   font-family: sans-serif;
-  color: #5a3e2b;
+  color: #3d3b40;
   font-family: "Quicksand";
   font-weight: 500;
 }
@@ -27,8 +27,8 @@ body {
 
 h1 {
   text-align: center;
-  background-color: #f4a226;
-  font-family: "Monoton";
+  background-color: #faeed1;
+  font-family: "Arial";
   font-size: 8rem;
   text-transform: uppercase;
   font-weight: 400;
@@ -38,7 +38,7 @@ h1 {
 }
 
 .add-form {
-  background-color: #e5771f;
+  background-color: #a9a9a9;
   padding: 2.8rem 0;
   display: flex;
   align-items: center;
@@ -54,12 +54,12 @@ h3 {
 button,
 select,
 input {
-  background-color: #ffebb3;
-  color: #5a3e2b;
+  background-color: #faeed1;
+  color: #000;
   font-family: inherit;
   border: none;
   border-radius: 10rem;
-  padding: 1.2rem 3.2rem;
+  padding: 1.2rem 4rem;
   font-weight: 700;
   font-size: 1.8rem;
   cursor: pointer;
@@ -67,13 +67,13 @@ input {
 
 .add-form button {
   text-transform: uppercase;
-  background-color: #76c7ad;
+  background-color: #61677a;
 }
 
 .list {
-  background-color: #5a3e2b;
-  color: #ffebb3;
-  padding: 4rem 0;
+  background-color: #faeed1;
+  color: #000;
+  padding-top: 3rem;
 
   display: flex;
   justify-content: space-between;
@@ -124,7 +124,7 @@ input[type="checkbox"] {
 }
 
 .stats {
-  background-color: #76c7ad;
+  background-color: #a9a9a9;
   text-align: center;
   font-weight: 700;
   padding: 3.2rem 0;
