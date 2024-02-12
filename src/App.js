@@ -1,59 +1,49 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-//static items
-// const initialItems = [
-//   { id: 1, description: "Passports", quantity: 2, packed: false },
-//   { id: 2, description: "Socks", quantity: 12, packed: true },
-//   { id: 3, description: "Power Bank", quantity: 1, packed: true },
-// ];
+const initialItems = [
+  { id: 1, description: "Passports", quantity: 2, packed: false },
+  { id: 2, description: "Socks", quantity: 12, packed: true },
+  { id: 3, description: "Power Bank", quantity: 1, packed: true },
+];
 
-//parent component
 export default function App() {
-  //destructuring array for states
   const [items, setItems] = useState([]);
 
-  //handle add items to the state
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
   }
 
-  //render child components inside parent
+  function handleDelete(id) {
+    const updatedItems = items.filter((item) => item.id !== id);
+    setItems(updatedItems);
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItems} />
-      <PackingList items={items} />
-      <Stats />
+      <PackingList items={items} onDelete={handleDelete} />
+      <Stats items={items} />
     </div>
   );
 }
 
-//child component logo
 function Logo() {
   return <h1> 🧳 JALAN KUY ✈</h1>;
 }
 
-//child component form
 function Form({ onAddItems }) {
-  //destructuring array for state
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  // handle submission of from, by preventing its default behavior
   function handleSubmit(e) {
     e.preventDefault();
 
-    //if empty description
     if (!description) return;
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
-    console.log(newItem); //testing new item data
-
-    //store new item in array from parent state
-    //called this function whenever form submitted
     onAddItems(newItem);
 
-    //return this state
     setDescription("");
     setQuantity(1);
   }
@@ -64,7 +54,9 @@ function Form({ onAddItems }) {
       <h3>Yuk Checklist Barang 😁📝</h3>
       <select value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}>
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-          <option value={num}>{num}</option>
+          <option value={num} key={num}>
+            {num}
+          </option>
         ))}
       </select>
       <input type="text" placeholder="Barang yang mau dibawa" value={description} onChange={(e) => setDescription(e.target.value)} />
@@ -73,39 +65,39 @@ function Form({ onAddItems }) {
   );
 }
 
-//child component PackingList
-function PackingList({ items }) {
+function PackingList({ items, onDelete }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => (
-          <Item item={item} key={item.id} />
+          <Item key={item.id} item={item} onDelete={() => onDelete(item.id)} />
         ))}
       </ul>
     </div>
   );
 }
 
-//sub-component PackingList
-function Item({ item }) {
+function Item({ item, onDelete }) {
   return (
     <li>
-      {/* ternary operator to check simple condition */}
-      {/* if item.packed === true then apply this style textDecoration: "line-through" 
-      else don't do anything */}
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={onDelete}>❌</button>
     </li>
   );
 }
 
-//child component Stats
-function Stats() {
+function Stats({ items }) {
+  const totalItems = items.length;
+  const packedItems = items.filter((item) => item.packed).length;
+  const percentagePacked = totalItems > 0 ? ((packedItems / totalItems) * 100).toFixed(0) : 0;
+
   return (
     <footer className="stats">
-      <em>💼 Kamu punya 0 barang di daftar, dan sudah packing 0 barang (0%) </em>
+      <em>
+        💼 Kamu punya {totalItems} barang di daftar, dan sudah packing {packedItems} barang {totalItems > 0 ? `(${percentagePacked}%)` : ""}
+      </em>
     </footer>
   );
 }
